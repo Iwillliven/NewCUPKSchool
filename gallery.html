@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 基本元数据设置 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园活动 - 活动相册</title>
+    
+    <!-- 引入外部样式和脚本 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    
+    <style>
+        /* 轮播图容器样式 */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        /* 轮播图轨道样式 */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            white-space: nowrap;
+        }
+        
+        /* 轮播图单个幻灯片样式 */
+        .carousel-slide {
+            min-width: 100%;
+            height: 240px;
+            flex-shrink: 0;
+        }
+        
+        /* 轮播图指示器样式 */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        
+        /* 轮播图指示器点样式 */
+        .carousel-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        /* 轮播图指示器激活状态样式 */
+        .carousel-indicator.active {
+            background: white;
+        }
+        
+        /* 轮播图导航按钮样式 */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        /* 轮播图导航按钮悬停效果 */
+        .carousel-nav:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        /* 轮播图上一张按钮位置 */
+        .carousel-nav.prev {
+            left: 12px;
+        }
+        
+        /* 轮播图下一张按钮位置 */
+        .carousel-nav.next {
+            right: 12px;
+        }
+        
+        /* 轮播图容器悬停时显示导航按钮 */
+        .carousel-container:hover .carousel-nav {
+            opacity: 1;
+        }
+        
+        /* 文字渐变效果样式 */
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* 卡片悬停动画效果 */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* 描述文本高亮样式 */
+        .description-highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        /* 渐变背景动画效果 */
+        .gradient-animate {
+            background: linear-gradient(-45deg, #a6c1ee, #fbc2eb, #a6c1ee, #fbc2eb);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        /* 活动相册卡片样式 */
+        .season-gallery {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+        }
+        
+        .season-gallery::before {
+            background: linear-gradient(to bottom, #4ade80, #22c55e);
+        }
+        
+        .season-gallery:hover {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(34, 197, 94, 0.1));
+        }
+        
+        .season-gallery .season-icon {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="mainNav">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <i class="fa fa-leaf text-green-600 text-2xl"></i>
+                <span class="text-xl font-bold text-gray-800">校园四季</span>
+            </a>
+            
+            <!-- 桌面端导航 -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="nav-link">首页</a>
+                <div class="relative group">
+                    <button class="nav-link flex items-center">
+                        校园四季
+                        <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div class="season-menu">
+                        <a href="spring.html" class="season-item season-spring">
+                            <div class="season-icon">
+                                <i class="fa fa-leaf"></i>
+                            </div>
+                            <span class="season-text">春季</span>
+                        </a>
+                        <a href="summer.html" class="season-item season-summer">
+                            <div class="season-icon">
+                                <i class="fa fa-sun-o"></i>
+                            </div>
+                            <span class="season-text">夏季</span>
+                        </a>
+                        <a href="autumn.html" class="season-item season-autumn">
+                            <div class="season-icon">
+                                <i class="fa fa-leaf fa-flip-horizontal"></i>
+                            </div>
+                            <span class="season-text">秋季</span>
+                        </a>
+                        <a href="winter.html" class="season-item season-winter">
+                            <div class="season-icon">
+                                <i class="fa fa-snowflake-o"></i>
+                            </div>
+                            <span class="season-text">冬季</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="nav-link flex items-center">
+                        校园活动
+                        <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div class="season-menu">
+                        <a href="gallery.html" class="season-item season-gallery">
+                            <div class="season-icon">
+                                <i class="fa fa-camera activity-album-icon"></i>
+                            </div>
+                            <span class="season-text">活动相册</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="motto.html" class="nav-link">校训故事</a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <button class="md:hidden text-gray-700 focus:outline-none" id="menuBtn">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div class="md:hidden bg-white shadow-lg absolute w-full left-0 top-full transform -translate-y-full opacity-0 invisible transition-all duration-300" id="mobileMenu">
+            <div class="container mx-auto px-4 py-3">
+                <a href="index.html" class="block py-2 text-gray-700 hover:text-green-600 transition-colors font-medium">首页</a>
+                <div class="relative" id="mobileSeasonMenu">
+                    <button class="w-full text-left py-2 text-gray-700 hover:text-green-600 transition-colors font-medium flex items-center justify-between">
+                        校园四季
+                        <i class="fa fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="hidden pl-4 py-2" id="mobileSeasonSubmenu">
+                        <a href="spring.html" class="season-item season-spring">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-leaf"></i>
+                            </div>
+                            <span class="season-text">春季</span>
+                        </a>
+                        <a href="summer.html" class="season-item season-summer">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-sun-o"></i>
+                            </div>
+                            <span class="season-text">夏季</span>
+                        </a>
+                        <a href="autumn.html" class="season-item season-autumn">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-leaf fa-flip-horizontal"></i>
+                            </div>
+                            <span class="season-text">秋季</span>
+                        </a>
+                        <a href="winter.html" class="season-item season-winter">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-snowflake-o"></i>
+                            </div>
+                            <span class="season-text">冬季</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative" id="mobileActivityMenu">
+                    <button class="w-full text-left py-2 text-gray-700 hover:text-green-600 transition-colors font-medium flex items-center justify-between">
+                        校园活动
+                        <i class="fa fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="hidden pl-4 py-2" id="mobileActivitySubmenu">
+                        <a href="gallery.html" class="season-item season-gallery">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-camera activity-album-icon"></i>
+                            </div>
+                            <span class="season-text">活动相册</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="motto.html" class="block py-2 text-gray-700 hover:text-green-600 transition-colors font-medium">校训故事</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面标题 -->
+    <header class="relative pt-32 pb-20 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800">
+            <div class="absolute inset-0 opacity-20" style="background-image: url('images/gallery/sports/main.png'); background-size: cover; background-position: center;"></div>
+        </div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">活动相册</h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto text-gray-200 leading-relaxed">记录精彩瞬间，分享美好回忆</p>
+        </div>
+    </header>
+
+    <!-- 内容区 -->
+    <main class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <!-- 相册分类 -->
+            <div class="flex justify-center space-x-4 mb-12">
+                <button class="px-6 py-2 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors">全部</button>
+            </div>
+
+            <!-- 相册网格 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 中石大运动会 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 card-hover">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="sports-carousel">
+                            <img src="images/gallery/sports/main.png" alt="运动会场景1" class="carousel-slide object-cover">
+                            <img src="images/gallery/sports/scene2.png" alt="运动会场景2" class="carousel-slide object-cover">
+                            <img src="images/gallery/sports/scene3.png" alt="运动会场景3" class="carousel-slide object-cover">
+                            <img src="images/gallery/sports/scene4.png" alt="运动会场景4" class="carousel-slide object-cover">
+                        </div>
+                        <button class="carousel-nav prev" onclick="prevSlide('sports-carousel')">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-nav next" onclick="nextSlide('sports-carousel')">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                        <div class="carousel-indicators" id="sports-indicators"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 text-gradient">中石大运动会</h3>
+                        <p class="text-gray-600 text-sm mb-3 flex items-center">
+                            <i class="fa fa-calendar mr-2 text-green-600"></i>
+                            2025年4月27日
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-gray-200 text-gray-700 leading-relaxed space-y-3">
+                            <p class="text-center">
+                                <span class="description-highlight">🏃‍♂️ 锐意进取，风华正茂</span>
+                            </p>
+                            <p class="text-center font-medium text-blue-600">能源报国，青春激扬</p>
+                            <div class="bg-gradient-to-r from-green-50 to-blue-50 p-3 rounded-lg">
+                                <p class="text-green-700 font-semibold text-sm">📅 4月26日</p>
+                                <p class="text-sm mt-1">校区第八届春季田径运动会在红旗操场燃情开赛</p>
+                            </div>
+                            <p class="text-center text-purple-600 font-medium">🎯 跟随官微镜头，一起直击现场！</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 校园音乐节 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 card-hover">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="music-carousel">
+                            <img src="images/gallery/music/main.png" alt="音乐节场景1" class="carousel-slide object-cover">
+                            <img src="images/gallery/music/scene2.png" alt="音乐节场景2" class="carousel-slide object-cover">
+                            <img src="images/gallery/music/scene3.png" alt="音乐节场景3" class="carousel-slide object-cover">
+                            <img src="images/gallery/music/scene4.png" alt="音乐节场景4" class="carousel-slide object-cover">
+                        </div>
+                        <button class="carousel-nav prev" onclick="prevSlide('music-carousel')">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-nav next" onclick="nextSlide('music-carousel')">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                        <div class="carousel-indicators" id="music-indicators"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 text-gradient">校园音乐节</h3>
+                        <p class="text-gray-600 text-sm mb-3 flex items-center">
+                            <i class="fa fa-calendar mr-2 text-green-600"></i>
+                            2025年6月5日
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-gray-200 text-gray-700 leading-relaxed space-y-3">
+                            <p class="text-center">
+                                <span class="description-highlight">🎵 盛夏的晚风轻抚过红山湖畔</span>
+                            </p>
+                            <p class="text-center text-orange-600">红旗操场上升起绚烂的晚霞</p>
+                            <div class="bg-gradient-to-r from-pink-50 to-purple-50 p-3 rounded-lg">
+                                <p class="text-sm">我们珍藏的学生时光被谱写成今夜最动人的乐章</p>
+                                <p class="text-sm mt-1">从"同学你好"的初见青涩到"后会有期"的郑重约定</p>
+                            </div>
+                            <p class="text-center text-purple-600 font-medium">✨ 四载春秋化作舞台上的璀璨星光</p>
+                            <p class="text-center text-sm italic text-gray-600">以音乐为笺，以月光为墨，共同书写青春的离别诗</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 中石大彩虹跑 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 card-hover">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="rainbow-carousel">
+                            <img src="images/gallery/rainbow/main.png" alt="彩虹跑场景1" class="carousel-slide object-cover">
+                            <img src="images/gallery/rainbow/scene2.png" alt="彩虹跑场景2" class="carousel-slide object-cover">
+                            <img src="images/gallery/rainbow/scene3.png" alt="彩虹跑场景3" class="carousel-slide object-cover">
+                            <img src="images/gallery/rainbow/scene4.png" alt="彩虹跑场景4" class="carousel-slide object-cover">
+                        </div>
+                        <button class="carousel-nav prev" onclick="prevSlide('rainbow-carousel')">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-nav next" onclick="nextSlide('rainbow-carousel')">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                        <div class="carousel-indicators" id="rainbow-indicators"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 text-gradient">中石大彩虹跑</h3>
+                        <p class="text-gray-600 text-sm mb-3 flex items-center">
+                            <i class="fa fa-calendar mr-2 text-green-600"></i>
+                            2025年5月28日
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-gray-200 text-gray-700 leading-relaxed space-y-3">
+                            <p class="text-center">
+                                <span class="description-highlight">🍂 四年前，秋阳把银杏叶拓成录取通知书的烫金</span>
+                            </p>
+                            <p class="text-center text-orange-600">四年后，小石子们奔跑着，将盛夏泼洒成流动色谱</p>
+                            <div class="bg-gradient-to-r from-yellow-50 to-red-50 p-3 rounded-lg">
+                                <p class="text-sm text-center">🌈 在红山湖畔，一场酣畅淋漓的"彩虹跑"</p>
+                                <p class="text-sm text-center mt-1">为四年的大学生活再添一道亮眼印记</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 红山湖捕鱼 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 card-hover">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="fishing-carousel">
+                            <img src="images/gallery/fishing/main.png" alt="捕鱼场景1" class="carousel-slide object-cover">
+                            <img src="images/gallery/fishing/scene2.png" alt="捕鱼场景2" class="carousel-slide object-cover">
+                            <img src="images/gallery/fishing/scene3.png" alt="捕鱼场景3" class="carousel-slide object-cover">
+                            <img src="images/gallery/fishing/scene4.png" alt="image.png捕鱼场景4" class="carousel-slide object-cover">
+                        </div>
+                        <button class="carousel-nav prev" onclick="prevSlide('fishing-carousel')">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-nav next" onclick="nextSlide('fishing-carousel')">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                        <div class="carousel-indicators" id="fishing-indicators"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 text-gradient">红山湖捕鱼</h3>
+                        <p class="text-gray-600 text-sm mb-3 flex items-center">
+                            <i class="fa fa-calendar mr-2 text-green-600"></i>
+                            2025年6月02日
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-gray-200 text-gray-700 leading-relaxed space-y-3">
+                            <p class="text-center">
+                                <span class="description-highlight">🐟 起鱼啦！</span>
+                            </p>
+                            <p class="text-center text-blue-600">我跟这条锦鲤合个影呗！</p>
+                            <div class="bg-gradient-to-r from-blue-50 to-green-50 p-3 rounded-lg">
+                                <p class="text-green-700 font-semibold text-sm">🎣 毕业季必玩！好玩，更好吃！</p>
+                                <p class="text-sm mt-1">母校邀请我们回来参加捕鱼节，一切仿佛回到毕业那个夏天</p>
+                            </div>
+                            <p class="text-center text-purple-600 font-medium">💙 祝中石大越来越好！</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025届留疆毕业生 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 card-hover">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="graduation-carousel">
+                            <img src="images/gallery/graduation/main.png" alt="毕业生场景1" class="carousel-slide object-cover">
+                            <img src="images/gallery/graduation/scene2.png" alt="毕业生场景2" class="carousel-slide object-cover">
+                            <img src="images/gallery/graduation/scene3.png" alt="毕业生场景3" class="carousel-slide object-cover">
+                            <img src="images/gallery/graduation/scene4.png" alt="毕业生场景4" class="carousel-slide object-cover">
+                        </div>
+                        <button class="carousel-nav prev" onclick="prevSlide('graduation-carousel')">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-nav next" onclick="nextSlide('graduation-carousel')">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                        <div class="carousel-indicators" id="graduation-indicators"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 text-gradient">2025届留疆毕业生</h3>
+                        <p class="text-gray-600 text-sm mb-3 flex items-center">
+                            <i class="fa fa-calendar mr-2 text-green-600"></i>
+                            2025年5月30日
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-gray-200 text-gray-700 leading-relaxed space-y-3">
+                            <p class="text-center">
+                                <span class="description-highlight">🎓 2025年是习近平总书记给校区首届留疆毕业生回信五周年</span>
+                            </p>
+                            <p class="text-center text-blue-600">是教育部批复建设校区十周年</p>
+                            <div class="bg-gradient-to-r from-red-50 to-orange-50 p-3 rounded-lg">
+                                <p class="text-red-700 font-semibold text-sm">📅 5月30日上午</p>
+                                <p class="text-sm mt-1">"到祖国最需要的地方去"留疆毕业生出征仪式暨克拉玛依高校学生扎根边疆立志签名活动在校区德政广场举行</p>
+                            </div>
+                            <p class="text-center text-sm italic text-gray-600">以"志不求易者成，事不避难者进"的精神为指引，积极投身西部基层建设</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 红山湖茶叙 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 card-hover">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="tea-carousel">
+                            <img src="images/gallery/tea/main.png" alt="茶叙场景1" class="carousel-slide object-cover">
+                            
+                        </div>
+                        <button class="carousel-nav prev" onclick="prevSlide('tea-carousel')">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-nav next" onclick="nextSlide('tea-carousel')">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                        <div class="carousel-indicators" id="tea-indicators"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 text-gradient">红山湖茶叙</h3>
+                        <p class="text-gray-600 text-sm mb-3 flex items-center">
+                            <i class="fa fa-calendar mr-2 text-green-600"></i>
+                            2025年4月22日
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-gray-200 text-gray-700 leading-relaxed space-y-3">
+                            <p class="text-center">
+                                <span class="description-highlight">🍃 骊歌轻起，红山湖畔再续清谈</span>
+                            </p>
+                            <div class="bg-gradient-to-r from-green-50 to-teal-50 p-3 rounded-lg">
+                                <p class="text-green-700 font-semibold text-sm">📅 6月4日上午</p>
+                                <p class="text-sm mt-1">校区组织召开红山湖茶叙——2025届毕业季专场，送别即将离校的2025届毕业生</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分页 -->
+            <div class="flex justify-center mt-12">
+                <nav class="flex items-center space-x-2">
+                    <button class="px-3 py-1 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                        <i class="fa fa-chevron-left"></i>
+                    </button>
+                    <button class="px-3 py-1 rounded-md bg-green-600 text-white">1</button>
+                    <button class="px-3 py-1 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">2</button>
+                    <button class="px-3 py-1 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">3</button>
+                    <button class="px-3 py-1 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                        <i class="fa fa-chevron-right"></i>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-8 flex items-center"> 
+                    <img src="images/school_logo.png" alt="校园四季标志" class="w-20 h-20 object-contain">
+                    石大校园
+                    </h3>
+                    <p class="text-gray-400 mb-6">探索校园四季的美景，感受大自然的变化与魅力。</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">石大传送门</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-green-400 transition-colors">首页</a></li>
+                        <li><a href="spring.html" class="text-gray-400 hover:text-green-400 transition-colors">春季校园</a></li>
+                        <li><a href="summer.html" class="text-gray-400 hover:text-green-400 transition-colors">夏季校园</a></li>
+                        <li><a href="autumn.html" class="text-gray-400 hover:text-green-400 transition-colors">秋季校园</a></li>
+                        <li><a href="winter.html" class="text-gray-400 hover:text-green-400 transition-colors">冬季校园</a></li>
+                        <li><a href="gallery.html" class="text-gray-400 hover:text-green-400 transition-colors">活动相册 <i class="fa fa-camera activity-album-icon"></i></a></li>
+                        <li><a href="motto.html" class="text-gray-400 hover:text-green-400 transition-colors">石大精神</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">联系我们</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-green-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">新疆克拉玛依市克拉玛依区安定路355号</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-phone text-green-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">+86 1314520</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope text-green-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">ilovecupk.edu.cn</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">订阅更新</h3>
+                    <p class="text-gray-400 mb-4">订阅我们的网页，获取校园美景和活动信息。</p>
+                    <form class="space-y-3">
+                        <div>
+                            <input type="email" placeholder="您的邮箱地址" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+                        </div>
+                        <button type="submit" class="w-full px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+                            订阅
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 石大校园. 保留所有权利.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-500 hover:text-green-400 transition-colors text-sm">隐私政策</a>
+                        <a href="#" class="text-gray-500 hover:text-green-400 transition-colors text-sm">使用条款</a>
+                        <a href="#" class="text-gray-500 hover:text-green-400 transition-colors text-sm">Cookie政策</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 脚本 -->
+    <script src="javascript/menu.js"></script>
+    <script src="javascript/slideshow.js"></script>
+</body>
+</html>

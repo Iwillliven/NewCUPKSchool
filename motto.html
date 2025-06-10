@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校训故事 - 校园四季</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    <!-- 自定义Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981', // 绿色主色调
+                        secondary: '#3B82F6', // 蓝色辅助色
+                        oil: '#B87333', // 石油色
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 渐变背景动画 */
+        .gradient-animate {
+            background: linear-gradient(-45deg, #a6c1ee, #fbc2eb, #a6c1ee, #fbc2eb);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        /* 四季下拉菜单样式 */
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        /* 移动端样式调整 */
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="mainNav">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <i class="fa fa-leaf text-green-600 text-2xl"></i>
+                <span class="text-xl font-bold text-gray-800">校园四季</span>
+            </a>
+            
+            <!-- 桌面端导航 -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="nav-link">首页</a>
+                <div class="relative group">
+                    <button class="nav-link flex items-center">
+                        校园四季
+                        <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div class="season-menu">
+                        <a href="spring.html" class="season-item season-spring">
+                            <div class="season-icon">
+                                <i class="fa fa-leaf"></i>
+                            </div>
+                            <span class="season-text">春季</span>
+                        </a>
+                        <a href="summer.html" class="season-item season-summer">
+                            <div class="season-icon">
+                                <i class="fa fa-sun-o"></i>
+                            </div>
+                            <span class="season-text">夏季</span>
+                        </a>
+                        <a href="autumn.html" class="season-item season-autumn">
+                            <div class="season-icon">
+                                <i class="fa fa-leaf fa-flip-horizontal"></i>
+                            </div>
+                            <span class="season-text">秋季</span>
+                        </a>
+                        <a href="winter.html" class="season-item season-winter">
+                            <div class="season-icon">
+                                <i class="fa fa-snowflake-o"></i>
+                            </div>
+                            <span class="season-text">冬季</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="nav-link flex items-center">
+                        校园活动
+                        <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                        <div class="py-1" role="menu">
+                            <a href="gallery.html" class="season-item season-gallery">
+                                <div class="season-icon">
+                                    <i class="fa fa-camera activity-album-icon"></i>
+                                </div>
+                                <span class="season-text">活动相册</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="motto.html" class="nav-link">校训故事</a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <button class="md:hidden text-gray-700 focus:outline-none" id="menuBtn">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div class="md:hidden bg-white shadow-lg absolute w-full left-0 top-full transform -translate-y-full opacity-0 invisible transition-all duration-300" id="mobileMenu">
+            <div class="container mx-auto px-4 py-3">
+                <a href="index.html" class="block py-2 text-gray-700 hover:text-green-600 transition-colors font-medium">首页</a>
+                <div class="relative" id="mobileSeasonMenu">
+                    <button class="w-full text-left py-2 text-gray-700 hover:text-green-600 transition-colors font-medium flex items-center justify-between">
+                        校园四季
+                        <i class="fa fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="hidden pl-4 py-2" id="mobileSeasonSubmenu">
+                        <a href="spring.html" class="season-item season-spring">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-leaf"></i>
+                            </div>
+                            <span class="season-text">春季</span>
+                        </a>
+                        <a href="summer.html" class="season-item season-summer">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-sun-o"></i>
+                            </div>
+                            <span class="season-text">夏季</span>
+                        </a>
+                        <a href="autumn.html" class="season-item season-autumn">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-leaf fa-flip-horizontal"></i>
+                            </div>
+                            <span class="season-text">秋季</span>
+                        </a>
+                        <a href="winter.html" class="season-item season-winter">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-snowflake-o"></i>
+                            </div>
+                            <span class="season-text">冬季</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative" id="mobileActivityMenu">
+                    <button class="w-full text-left py-2 text-gray-700 hover:text-green-600 transition-colors font-medium flex items-center justify-between">
+                        校园活动
+                        <i class="fa fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="hidden pl-4 py-2" id="mobileActivitySubmenu">
+                        <a href="gallery.html" class="season-item season-gallery">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-camera activity-album-icon"></i>
+                            </div>
+                            <span class="season-text">活动相册</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="motto.html" class="block py-2 text-gray-700 hover:text-green-600 transition-colors font-medium">校训故事</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面标题 -->
+    <header class="relative pt-32 pb-20 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800">
+            <div class="absolute inset-0 opacity-20" style="background-image: url('images/到祖国需要的地方1.jpg'); background-size: cover; background-position: center;"></div>
+        </div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">石大精神</h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto text-gray-200 leading-relaxed">我校校训为"厚积薄发，开物成务"，它高度体现了我校的办学理念及育人目标。石油精神是我校发展的灵魂，是石大人代代相传的宝贵财富。</p>
+        </div>
+    </header>
+
+    <!-- 内容区 -->
+    <main class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <!-- 校训介绍 -->
+            <section class="mb-20">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 relative inline-block">
+                            厚积薄发，开物成务
+                            <span class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full"></span>
+                        </h2>
+                        <p class="text-gray-600 text-xl mt-8">"To learn with perseverance, to apply with integrity."</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-xl border border-gray-100">
+                        <div class="flex flex-col md:flex-row items-center gap-8 mb-12">
+                            <div class="w-full md:w-1/3">
+                                <div class="relative group">
+                                    <img src="images/到祖国需要的地方1.jpg" alt="校训文化石" class="w-full h-auto rounded-xl shadow-lg transform transition-transform duration-500 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                                </div>
+                            </div>
+                            <div class="w-full md:w-2/3">
+                                <h3 class="text-3xl font-bold text-gray-800 mb-6">校训由来</h3>
+                                <p class="text-gray-600 text-lg leading-relaxed mb-6">"厚积薄发",出自苏轼《杂说：送张琥》中的 "博观而约取，厚积而薄发"；"开物成务",出自《周易：系辞上》，意为 "开通万物之志，成就天下之务"。</p>
+                                <p class="text-gray-600 text-lg leading-relaxed">中国石油大学（北京）因油而生，因油而兴，因油而强，与油共进，肩负着为国家培养石油专业人才、推动石油工业发展的重任。"厚积薄发，开物成务" 的校训，是学校办学理念、育人目标的高度概括，激励着石大学子不断积蓄前进力量、积累智慧学识，涵育崇高的理想信念和道德情操，以实学为务，开发能源，造福于民，成就功业，为国家现代化建设伟业和人类社会和谐进步贡献力量。</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                                    <i class="fa fa-book text-green-600 mr-3 text-2xl"></i>
+                                    实事求是，艰苦奋斗
+                                </h3>
+                                <p class="text-gray-600 text-lg leading-relaxed">实事求是和艰苦奋斗是我校的优良传统，与校训紧密相连。在学习和科研中，我们坚持实事求是，追求真理；在面对困难和挑战时，我们发扬艰苦奋斗的精神，勇往直前。</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                                    <i class="fa fa-lightbulb-o text-yellow-600 mr-3 text-2xl"></i>
+                                    为学为师，立德立言
+                                </h3>
+                                <p class="text-gray-600 text-lg leading-relaxed">"为学为师，立德立言"倡导师生研学问、育英才，修品德、传思想，以学识与德行双馨，践初心、担使命，铸教育之魂。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 石油精神 -->
+            <section class="mb-20">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 relative inline-block">
+                        石油精神
+                        <span class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full"></span>
+                    </h2>
+                    <p class="text-gray-600 text-xl mt-8">石油精神是我校发展的灵魂，是石大人代代相传的宝贵财富。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <!-- 石油精神1 -->
+                    <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-gray-100">
+                        <div class="w-20 h-20 bg-oil/10 rounded-2xl flex items-center justify-center mb-8 transform transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa fa-fire text-oil text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">铁人精神</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">铁人精神是石油行业的标杆，"宁肯少活二十年，拼命也要拿下大油田"的豪迈誓言，激励着一代又一代石大学子为祖国的石油事业贡献力量。</p>
+                    </div>
+
+                    <!-- 石油精神2 -->
+                    <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-gray-100">
+                        <div class="w-20 h-20 bg-oil/10 rounded-2xl flex items-center justify-center mb-8 transform transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa fa-cogs text-oil text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">艰苦奋斗</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">石油工业是艰苦行业，石大学子继承和发扬艰苦奋斗的精神，在大漠戈壁、深海油田等艰苦环境中，为国家能源安全默默奉献。</p>
+                    </div>
+
+                    <!-- 石油精神3 -->
+                    <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-gray-100">
+                        <div class="w-20 h-20 bg-oil/10 rounded-2xl flex items-center justify-center mb-8 transform transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa fa-flask text-oil text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">科技创新</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">石油行业是技术密集型行业，石大师生始终坚持科技创新，在油气勘探开发、新能源利用等领域取得了一系列重大成果，推动行业技术进步。</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-10 shadow-xl border border-gray-100">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">石油精神代代传</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-10 text-center max-w-4xl mx-auto">石油精神是中国石油工业不断发展壮大的精神支柱，也是我校师生砥砺前行的动力源泉。从建校初期到现在，石大人始终秉承石油精神，为国家培养了大量优秀的石油人才，为保障国家能源安全做出了重要贡献。</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="bg-white rounded-xl p-8 shadow-md">
+                            <h4 class="text-2xl font-bold text-gray-800 mb-6">石油精神内涵</h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-start group">
+                                    <div class="w-8 h-8 rounded-full bg-oil/10 flex items-center justify-center mr-4 mt-1 group-hover:bg-oil/20 transition-colors">
+                                        <i class="fa fa-check-circle text-oil"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-lg">为国分忧、为民族争气的爱国主义精神</span>
+                                </li>
+                                <li class="flex items-start group">
+                                    <div class="w-8 h-8 rounded-full bg-oil/10 flex items-center justify-center mr-4 mt-1 group-hover:bg-oil/20 transition-colors">
+                                        <i class="fa fa-check-circle text-oil"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-lg">独立自主、自力更生的艰苦创业精神</span>
+                                </li>
+                                <li class="flex items-start group">
+                                    <div class="w-8 h-8 rounded-full bg-oil/10 flex items-center justify-center mr-4 mt-1 group-hover:bg-oil/20 transition-colors">
+                                        <i class="fa fa-check-circle text-oil"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-lg">讲究科学、"三老四严"的求实精神</span>
+                                </li>
+                                <li class="flex items-start group">
+                                    <div class="w-8 h-8 rounded-full bg-oil/10 flex items-center justify-center mr-4 mt-1 group-hover:bg-oil/20 transition-colors">
+                                        <i class="fa fa-check-circle text-oil"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-lg">胸怀全局、为国分忧的奉献精神</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white rounded-xl p-8 shadow-md">
+                            <h4 class="text-2xl font-bold text-gray-800 mb-6">石油精神在石大</h4>
+                            <p class="text-gray-600 text-lg leading-relaxed mb-6">我校始终将石油精神融入教育教学全过程，通过课堂教学、实践教学、校园文化建设等多种途径，培养学生的石油情怀和责任感，让石油精神在新时代焕发出新的活力。</p>
+                            <p class="text-gray-600 text-lg leading-relaxed">近年来，我校师生在石油科技领域取得了一系列重要成果，为国家能源安全和经济社会发展做出了积极贡献。石油精神已经成为石大文化的重要组成部分，激励着一代又一代石大学子奋勇前行。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 视频展示 -->
+            <section class="mb-20">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 relative inline-block">
+                        石油精神视频展示
+                        <span class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full"></span>
+                    </h2>
+                    <p class="text-gray-600 text-xl mt-8">通过视频，感受石油精神的传承与发扬。</p>
+                </div>
+
+                <div class="max-w-5xl mx-auto bg-gradient-to-br from-gray-50 to-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 mb-16">
+                    <div class="relative pt-[56.25%]">
+                        <!-- 视频播放器 -->
+                        <iframe 
+                            src="video/石油精神.mp4" 
+                            title="石油精神传承" 
+                            class="absolute top-0 left-0 w-full h-full" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">《石油魂》宣传片</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">本视频展示了中国石油工业的发展历程和石油精神的传承，以及我校师生在石油科技领域的探索与实践。</p>
+                    </div>
+                </div>
+
+                <!-- 视频模态框 -->
+                <div id="videoModal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+                    <div class="relative w-full max-w-5xl mx-4">
+                        <button id="closeModal" class="absolute -top-12 right-0 text-white text-3xl hover:text-gray-300 transition-colors">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <div class="relative pt-[56.25%]">
+                            <iframe id="modalVideo" src="" title="视频播放" class="absolute top-0 left-0 w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 group hover:shadow-2xl transition-all duration-300 cursor-pointer" data-video="video/石油勘探故事.mp4">
+                        <div class="relative">
+                            <img src="images/谭文波.jpg" alt="石油勘探" class="w-full h-56 object-cover transform transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <button class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
+                                        <i class="fa fa-play text-gray-800 text-xl"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-600 transition-colors">石油勘探的故事</h4>
+                            <p class="text-gray-600">讲述石油勘探工作者的艰辛与坚持</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 group hover:shadow-2xl transition-all duration-300 cursor-pointer" data-video="video/援疆教师的故事.mp4">
+                        <div class="relative">
+                            <img src="images/到祖国.jpg" alt="援疆教师" class="w-full h-56 object-cover transform transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <button class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
+                                        <i class="fa fa-play text-gray-800 text-xl"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-600 transition-colors">石油精神的践行者</h4>
+                            <p class="text-gray-600">展示援疆教师为祖国奉献一生的感人故事</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 group hover:shadow-2xl transition-all duration-300 cursor-pointer" data-video="video/石大学子.mp4">
+                        <div class="relative">
+                            <img src="images/石大学子.jpg" alt="石大学子" class="w-full h-56 object-cover transform transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <button class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
+                                        <i class="fa fa-play text-gray-800 text-xl"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-600 transition-colors">石大学子的石油情怀</h4>
+                            <p class="text-gray-600">记录我校学生在油田工作的真实经历</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+<footer class="bg-gray-800 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-8 flex items-center"> 
+                    <img src="images/school_logo.png" alt="校园四季标志" class="w-20 h-20 object-contain">
+                    石大校园
+                    </h3>
+                    <p class="text-gray-400 mb-6">探索校园四季的美景，感受大自然的变化与魅力。</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">石大传送门</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-green-400 transition-colors">首页</a></li>
+                        <li><a href="spring.html" class="text-gray-400 hover:text-green-400 transition-colors">春季校园</a></li>
+                        <li><a href="summer.html" class="text-gray-400 hover:text-green-400 transition-colors">夏季校园</a></li>
+                        <li><a href="autumn.html" class="text-gray-400 hover:text-green-400 transition-colors">秋季校园</a></li>
+                        <li><a href="winter.html" class="text-gray-400 hover:text-green-400 transition-colors">冬季校园</a></li>
+                        <li><a href="gallery.html" class="season-item season-gallery">
+                            <div class="season-icon inline-block">
+                                <i class="fa fa-camera activity-album-icon"></i>
+                            </div>
+                            <span class="season-text">活动相册</span>
+                        </a></li>
+                        <li><a href="motto.html" class="text-gray-400 hover:text-green-400 transition-colors">石大精神</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">联系我们</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-green-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">新疆克拉玛依市克拉玛依区安定路355号</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-phone text-green-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">+86 1314520</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope text-green-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">ilovecupk.edu.cn</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">订阅更新</h3>
+                    <p class="text-gray-400 mb-4">订阅我们的网页，获取校园美景和活动信息。</p>
+                    <form class="space-y-3">
+                        <div>
+                            <input type="email" placeholder="您的邮箱地址" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+                        </div>
+                        <button type="submit" class="w-full px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+                            订阅
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 石大校园. 保留所有权利.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-500 hover:text-green-400 transition-colors text-sm">隐私政策</a>
+                        <a href="#" class="text-gray-500 hover:text-green-400 transition-colors text-sm">使用条款</a>
+                        <a href="#" class="text-gray-500 hover:text-green-400 transition-colors text-sm">Cookie政策</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 脚本 -->
+    <script src="javascript/motto-1.js"></script>
+    <script src="javascript/menu.js"></script>
+    <script src="javascript/slideshow.js"></script>
+</body>
+</html>
