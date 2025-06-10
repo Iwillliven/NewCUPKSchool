@@ -591,5 +591,97 @@
     <!-- 脚本 -->
     <script src="javascript/menu.js"></script>
     <script src="javascript/slideshow.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有轮播图容器
+            const carousels = document.querySelectorAll('.carousel-container');
+            
+            carousels.forEach(carousel => {
+                const track = carousel.querySelector('.carousel-track');
+                const slides = track.querySelectorAll('.carousel-slide');
+                const indicatorsContainer = carousel.querySelector('.carousel-indicators');
+                const prevButton = carousel.querySelector('.carousel-nav.prev');
+                const nextButton = carousel.querySelector('.carousel-nav.next');
+                let currentSlide = 0;
+                let slideInterval;
+                
+                // 创建指示器
+                slides.forEach((_, index) => {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'carousel-indicator';
+                    if (index === 0) indicator.classList.add('active');
+                    indicator.addEventListener('click', () => {
+                        stopSlideshow();
+                        showSlide(index);
+                        startSlideshow();
+                    });
+                    indicatorsContainer.appendChild(indicator);
+                });
+                
+                // 显示指定幻灯片
+                function showSlide(index) {
+                    track.style.transform = `translateX(-${index * 100}%)`;
+                    const indicators = indicatorsContainer.querySelectorAll('.carousel-indicator');
+                    indicators.forEach((ind, i) => {
+                        ind.classList.toggle('active', i === index);
+                    });
+                    currentSlide = index;
+                }
+                
+                // 下一张幻灯片
+                function nextSlide() {
+                    let next = currentSlide + 1;
+                    if (next >= slides.length) {
+                        next = 0;
+                    }
+                    showSlide(next);
+                }
+                
+                // 上一张幻灯片
+                function prevSlide() {
+                    let prev = currentSlide - 1;
+                    if (prev < 0) {
+                        prev = slides.length - 1;
+                    }
+                    showSlide(prev);
+                }
+                
+                // 开始自动轮播
+                function startSlideshow() {
+                    slideInterval = setInterval(nextSlide, 5000);
+                }
+                
+                // 停止自动轮播
+                function stopSlideshow() {
+                    clearInterval(slideInterval);
+                }
+                
+                // 初始化显示第一张幻灯片
+                showSlide(0);
+                
+                // 开始自动轮播
+                startSlideshow();
+                
+                // 上一张/下一张按钮事件
+                if (prevButton && nextButton) {
+                    prevButton.addEventListener('click', function() {
+                        stopSlideshow();
+                        prevSlide();
+                        startSlideshow();
+                    });
+                    
+                    nextButton.addEventListener('click', function() {
+                        stopSlideshow();
+                        nextSlide();
+                        startSlideshow();
+                    });
+                }
+                
+                // 鼠标悬停时暂停轮播
+                carousel.addEventListener('mouseenter', stopSlideshow);
+                carousel.addEventListener('mouseleave', startSlideshow);
+            });
+        });
+    </script>
 </body>
 </html>
