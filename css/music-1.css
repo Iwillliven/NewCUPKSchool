@@ -1,0 +1,133 @@
+/* 新增音乐播放器样式 */
+.music-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.music-player:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.music-player .play-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #28a745, #218838); /* Base gradient */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.music-player .play-btn:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34); /* Darker gradient on hover */
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.music-player .song-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.music-player .song-title {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 0.9rem;
+}
+
+.music-player .song-artist {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.music-player .progress-bar-container {
+    flex-grow: 1;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.music-player .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #28a745, #4ade80); /* Base gradient */
+    border-radius: 2px;
+}
+
+.music-player .time-display {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+@media (max-width: 768px) {
+    .music-player {
+        bottom: 10px;
+        right: 10px;
+        padding: 10px;
+        gap: 10px;
+        border-radius: 30px;
+    }
+
+    .music-player .play-btn {
+        width: 35px;
+        height: 35px;
+    }
+
+    .music-player .song-info {
+        display: none;
+    }
+}
+
+/* 季节主题音乐播放器样式 */
+.music-player-spring .play-btn,
+.music-player-spring .progress-bar {
+    background: linear-gradient(135deg, #a6c1ee, #fbc2eb); /* Spring gradient */
+}
+
+.music-player-spring .play-btn:hover {
+    background: linear-gradient(135deg, #a6c1ee, #fbc2eb); /* Darker spring gradient on hover */
+}
+
+.music-player-summer .play-btn,
+.music-player-summer .progress-bar {
+    background: linear-gradient(135deg, #89f7fe, #66a6ff); /* Summer gradient */
+}
+
+.music-player-summer .play-btn:hover {
+    background: linear-gradient(135deg, #66a6ff, #89f7fe); /* Darker summer gradient on hover */
+}
+
+.music-player-autumn .play-btn,
+.music-player-autumn .progress-bar {
+    background: linear-gradient(135deg, #f09819, #ff5858); /* Autumn gradient */
+}
+
+.music-player-autumn .play-btn:hover {
+    background: linear-gradient(135deg, #ff5858, #f09819); /* Darker autumn gradient on hover */
+}
+
+.music-player-winter .play-btn,
+.music-player-winter .progress-bar {
+    background: linear-gradient(135deg, #e0e0e0, #c0c0c0); /* Winter gradient */
+}
+
+.music-player-winter .play-btn:hover {
+    background: linear-gradient(135deg, #c0c0c0, #e0e0e0); /* Darker winter gradient on hover */
+}
